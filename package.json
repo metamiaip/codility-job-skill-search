@@ -1,0 +1,23 @@
+{
+  "name": "codility-job-skill-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metamiaip/codility-job-skill-search.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metamiaip/codility-job-skill-search/issues"
+  },
+  "homepage": "https://github.com/metamiaip/codility-job-skill-search#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
