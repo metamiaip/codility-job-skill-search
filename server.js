@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 const candidatesArr = [
     {id: 1, name: "John", skills:["java","python","nodejs","mongodb"]},
@@ -13,9 +14,25 @@ app.get('/', function (req, res) {
  })
  
  // This responds a POST request for the homepage
+ /*
+req.body - put the following in postman body part
+{
+   "name": "xxx",
+   "skills": ["java","vbnet","ruby"]
+}
+ */
  app.post('/add_candidate', function (req, res) {
     console.log("Got a POST request for the homepage");
-    res.send('Add candidate');
+    const id = getNextCandidateId();
+    console.log(id);
+    console.log(req.body);
+    
+    const newCandidate = {id:0, name:"", skills:[]};
+    newCandidate.id = id;
+    newCandidate.name = req.body.name;
+    newCandidate.skills = req.body.skills;
+    candidatesArr.push(newCandidate);
+    res.send(newCandidate);
  })
  
  // This responds a DELETE request for the /del_user page.
@@ -45,13 +62,6 @@ app.get('/', function (req, res) {
     //console.log(candidateWithScore);
     res.send(candidateWithScore[0]);
  })
- // This responds a GET request for abcd, abxcd, ab123cd, and so on
- /*
- app.get('/ab*cd', function(req, res) {   
-    console.log("Got a GET request for /ab*cd");
-    res.send('Page Pattern Match');
- })
-*/
 
 const getCandidateWithScore = (skills) => candidatesArr.map( (candidate) => {
    candidate.score = 0;
@@ -65,6 +75,12 @@ const getCandidateWithScore = (skills) => candidatesArr.map( (candidate) => {
    return candidate;
 });
 
+const getNextCandidateId = () => {
+   const cloneArr = candidatesArr.slice(0);
+   const getMaxCandidateId = () => cloneArr.sort((a,b) => b.id - a.id);
+   const getMaxCId = getMaxCandidateId()[0].id;
+   return getMaxCId != null? getMaxCId + 1:0;
+}
 
 app.listen(3000, () => {
     console.log(`Express started on port 3000`);

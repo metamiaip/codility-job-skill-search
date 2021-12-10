@@ -1,0 +1,6 @@
+- Try to work out the codility pair programming tasks:
+- given an array of json object (candidates) 
+  - e.g. {id:1, name:"John", skills:["nodejs","java"]}
+- when calling http get (e.g. /search?skills=java,nodejs), search which candidate return most skills you are looking for and return that candidate (If more than one candidate with most skills, I only return the first candidate)
+- when calling http post (e.g. /create), this part I cannot remember all of it.  Assume you can get the data from request.body from Express.js, add this candidate to the given json object array. (for new candidate id, better to auto-increment automatically)
+- 
