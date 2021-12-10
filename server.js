@@ -41,8 +41,9 @@ app.get('/', function (req, res) {
     const searchSkills = req.query.skills.split(',');
     //console.log(searchSkills);
     const candidateWithScore = getCandidateWithScore(searchSkills);
+    candidateWithScore.sort((a,b) => b.score - a.score);
     //console.log(candidateWithScore);
-    res.send(candidateWithScore);
+    res.send(candidateWithScore[0]);
  })
  // This responds a GET request for abcd, abxcd, ab123cd, and so on
  /*
