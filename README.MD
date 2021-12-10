@@ -4,3 +4,11 @@
 - when calling http get (e.g. /search?skills=java,nodejs), search which candidate return most skills you are looking for and return that candidate (If more than one candidate with most skills, I only return the first candidate)
 - when calling http post (e.g. /create), this part I cannot remember all of it.  Assume you can get the data from request.body from Express.js, add this candidate to the given json object array. (for new candidate id, better to auto-increment automatically)
 - 
+
+- 3 api calls:
+- /list_candidate 
+  - list all candidate in the json objects array
+- /search_candidate?skills=java,csharp
+  - search the candidate with most matched skills
+- /add_candidate
+  - add a new candidate to the json objects array 
