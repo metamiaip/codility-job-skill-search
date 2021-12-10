@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const candidateArr = [
+const candidatesArr = [
     {id: 1, name: "John", skills:["java","python","nodejs","mongodb"]},
     {id: 2, name: "May", skills:["go","ruby","c#","c++"]},
     {id: 3, name: "Peter", skills:["java","angular","react","vuejs"]},
@@ -28,12 +28,22 @@ app.get('/', function (req, res) {
  app.get('/list_candidate', function (req, res) {
     console.log("Got a GET request for /list_candidate");
     if (res.statusCode === 200) {
-        res.send(candidateArr);
+        res.send(candidatesArr);
     }
     else 
         res.send('Error');
  })
- 
+
+ app.get('/search_candidate', function (req, res) {
+    console.log("Got a GET request for /search_candidate");
+    //console.log(req.query);
+    //console.log(req.query.skills.split(','));
+    const searchSkills = req.query.skills.split(',');
+    //console.log(searchSkills);
+    const candidateWithScore = getCandidateWithScore(searchSkills);
+    //console.log(candidateWithScore);
+    res.send(candidateWithScore);
+ })
  // This responds a GET request for abcd, abxcd, ab123cd, and so on
  /*
  app.get('/ab*cd', function(req, res) {   
@@ -41,6 +51,18 @@ app.get('/', function (req, res) {
     res.send('Page Pattern Match');
  })
 */
+
+const getCandidateWithScore = (skills) => candidatesArr.map( (candidate) => {
+   candidate.score = 0;
+   for (let i=0; i<candidate.skills.length; i++) {
+       for (let j=0; j<skills.length; j++) {
+           if (candidate.skills[i] == skills[j]) {
+               candidate.score++;
+           }
+       }
+   }
+   return candidate;
+});
 
 
 app.listen(3000, () => {
